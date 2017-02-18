@@ -1,0 +1,1 @@
+json.partial! "questioner_forms/questioner_form", questioner_form: @questioner_form
