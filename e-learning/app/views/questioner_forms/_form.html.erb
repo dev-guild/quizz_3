@@ -11,16 +11,12 @@
     </div>
   <% end %>
 
-<!--   <div class="field">
-    <%= f.label :question %>
-    <%= f.text_field :question %>
-  </div> -->
   <div class="field">
     <div>
       <%= f.label :question, "QUESTION" %>
     </div>
     <ol>
-      <% Question.all.each do |obj| %>
+       <% Question.order('RANDOM()').each do |obj| %>
         <%= f.hidden_field :question_id, { :value => obj.id} %>
         <li>
           <div><%= obj.text %></div>
