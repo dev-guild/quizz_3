@@ -1,0 +1,42 @@
+<%= form_for(question) do |f| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :text %>
+    <%= f.text_field :text %>
+  </div>
+ <!-- TODO show answer here. admin can automatically add answer of question here -->
+
+  <div class="field">
+    <%= f.label :question_type %>
+    <%= f.collection_select(:question_type_id, QuestionType.all, :id, :name, include_blank: false) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :question_group %>
+    <%= f.collection_select(:question_group_id, QuestionGroup.all, :id, :name, include_blank: false) %>
+  </div>
+
+  <div class="field">
+    <div class="field_head">Tag</div>
+    <% Tag.all.each do |tag| %>
+      <label>
+        <%= check_box_tag("question[tag_ids][]", tag.id, tag.id.in?(@tags.collect(&:id))) %> <%= tag.name %>
+      </label>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<%= form_for(questioner_form) do |f| %>
+  <% if questioner_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(questioner_form.errors.count, "error") %> prohibited this questioner_form from being saved:</h2>
+
+      <ul>
+      <% questioner_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!--   <div class="field">
+    <%= f.label :question %>
+    <%= f.text_field :question %>
+  </div> -->
+  <div class="field">
+    <div>
+      <%= f.label :question, "QUESTION" %>
+    </div>
+    <ol>
+      <% Question.all.each do |obj| %>
+        <%= f.hidden_field :question_id, { :value => obj.id} %>
+        <li>
+          <div><%= obj.text %></div>
+          <div class="radio" style="margin-left:30px;">
+            <% obj.answer.all.each do |answer| %>
+              <%= f.radio_button :answer_id, answer.text %>
+              <%= f.label obj.id, answer.text %>
+            <% end %>
+          </div>
+
+        </li>
+      <% end %>
+    </ol>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
